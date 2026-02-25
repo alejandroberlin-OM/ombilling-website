@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OM Billing Inc. | Physician Group Billing Support & Workflow Automation</title>
+  <meta name="description" content="Ontario physician group billing support and workflow automation. Structured optimization, validation tools, and seamless EMR & OHIP submission alignment." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --ink:#0f172a;           /* slate-900 */
+      --muted:#475569;         /* slate-600 */
+      --muted2:#64748b;        /* slate-500 */
+      --line:#e2e8f0;          /* slate-200 */
+      --card:#f8fafc;          /* slate-50 */
+      --accent:#1d4ed8;        /* blue-700 */
+      --accent2:#0b3aa7;
+      --shadow: 0 10px 30px rgba(15,23,42,.08);
+      --radius: 18px;
+      --max: 1040px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--ink);
+      background: radial-gradient(1200px 500px at 50% -80px, rgba(29,78,216,.10), transparent 60%) , var(--bg);
+      line-height:1.55;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 20px}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(180%) blur(10px);
+      background:rgba(255,255,255,.85);
+      border-bottom:1px solid rgba(226,232,240,.7);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; text-decoration:none;
+      font-weight:700;
+      letter-spacing:-0.02em;
+    }
+    .logo{
+      width:34px; height:34px; border-radius:10px;
+      background: linear-gradient(135deg, rgba(29,78,216,.95), rgba(29,78,216,.55));
+      box-shadow: 0 10px 20px rgba(29,78,216,.18);
+      display:grid; place-items:center;
+      color:white; font-size:14px;
+    }
+    /* If you add a real logo image later, replace the .logo div with <img class="logoimg" ...> */
+    .logoimg{width:34px; height:34px; border-radius:10px; object-fit:contain; background:#fff; border:1px solid var(--line);}
+
+    .menu{
+      display:flex; align-items:center; gap:18px;
+      font-size:14px; color:var(--muted);
+    }
+    .menu a{ text-decoration:none; padding:8px 10px; border-radius:10px; }
+    .menu a:hover{ background:rgba(226,232,240,.6); color:var(--ink); }
+
+    .cta{
+      display:flex; align-items:center; gap:10px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      text-decoration:none;
+      font-weight:600;
+      font-size:14px;
+      color:var(--ink);
+      background:rgba(255,255,255,.9);
+    }
+    .btn:hover{ box-shadow: var(--shadow); transform: translateY(-1px); transition: .18s ease; }
+    .btn.primary{
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color:white; border:0;
+      box-shadow: 0 14px 30px rgba(29,78,216,.22);
+    }
+
+    .hero{
+      padding:64px 0 34px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:28px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .hero-grid{ grid-template-columns:1fr; }
+      .menu{ display:none; } /* keep it simple on mobile */
+    }
+
+    .kicker{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px;
+      border:1px solid rgba(226,232,240,.9);
+      background: rgba(248,250,252,.9);
+      border-radius:999px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px; background:rgba(29,78,216,.9);
+      box-shadow:0 0 0 4px rgba(29,78,216,.12);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:44px;
+      line-height:1.05;
+      letter-spacing:-0.04em;
+    }
+    @media (max-width: 520px){ h1{ font-size:36px; } }
+    .sub{
+      font-size:16px;
+      color:var(--muted);
+      max-width: 64ch;
+      margin: 0 0 18px;
+    }
+    .pillrow{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top:16px;
+    }
+    .pill{
+      padding:8px 10px;
+      border:1px solid rgba(226,232,240,.9);
+      background: rgba(255,255,255,.85);
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .card{
+      background: rgba(255,255,255,.92);
+      border:1px solid rgba(226,232,240,.9);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .aside{
+      padding:18px;
+    }
+    .aside h3{
+      margin:0 0 8px;
+      font-size:14px;
+      color:var(--muted);
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+    .aside .big{
+      font-size:18px;
+      font-weight:700;
+      letter-spacing:-0.02em;
+      margin: 0 0 8px;
+    }
+    .aside p{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .mini{
+      border-top:1px solid rgba(226,232,240,.9);
+      padding-top:12px;
+      display:grid;
+      gap:10px;
+      font-size:14px;
+      color:var(--muted);
+    }
+    .mini strong{ color:var(--ink); font-weight:600; }
+    .mini a{ color:var(--accent); text-decoration:none; }
+    .mini a:hover{ text-decoration:underline; }
+
+    .section{
+      padding:34px 0;
+    }
+    .section h2{
+      font-size:22px;
+      letter-spacing:-0.02em;
+      margin:0 0 12px;
+    }
+    .section p{ margin:0; color:var(--muted); }
+
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 900px){ .grid{ grid-template-columns: repeat(2,1fr);} }
+    @media (max-width: 520px){ .grid{ grid-template-columns: 1fr;} }
+
+    .feature{
+      padding:16px;
+      border-radius: 16px;
+      background: var(--card);
+      border:1px solid rgba(226,232,240,.9);
+      transition: .2s ease;
+    }
+    .feature:hover{ transform: translateY(-2px); box-shadow: var(--shadow); background: rgba(248,250,252,.95); }
+    .icon{
+      width:34px; height:34px; border-radius:12px;
+      background: rgba(29,78,216,.10);
+      border:1px solid rgba(29,78,216,.18);
+      display:grid; place-items:center;
+      color: var(--accent);
+      font-weight:800;
+      margin-bottom:10px;
+      user-select:none;
+    }
+    .feature h3{ margin:0 0 6px; font-size:15px; }
+    .feature p{ margin:0; font-size:14px; color:var(--muted); }
+
+    .split{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+    @media (max-width: 900px){ .split{ grid-template-columns:1fr;} }
+
+    .box{
+      padding:18px;
+      border-radius: var(--radius);
+      border:1px solid rgba(226,232,240,.9);
+      background: rgba(255,255,255,.9);
+    }
+    .box ul{
+      margin:12px 0 0;
+      padding-left:18px;
+      color:var(--muted);
+    }
+    .box li{ margin:6px 0; }
+
+    .flow{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:10px;
+    }
+    @media (max-width: 900px){ .flow{ grid-template-columns:1fr; } }
+    .step{
+      padding:12px 12px;
+      border-radius:14px;
+      background: rgba(248,250,252,.9);
+      border:1px solid rgba(226,232,240,.9);
+      font-size:13px;
+      color:var(--muted);
+    }
+    .step strong{ display:block; color:var(--ink); font-size:13px; margin-bottom:4px; }
+
+    .divider{
+      height:1px; background:rgba(226,232,240,.9); margin: 6px 0 0;
+    }
+
+    footer{
+      padding:28px 0 40px;
+      border-top:1px solid rgba(226,232,240,.9);
+      background: rgba(248,250,252,.7);
+    }
+    .footergrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:16px;
+      align-items:start;
+    }
+    @media (max-width: 900px){ .footergrid{ grid-template-columns:1fr;} }
+    .fine{
+      font-size:13px; color:var(--muted2);
+      margin-top:10px;
+    }
+    .links a{
+      display:inline-block;
+      margin-right:14px;
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:600;
+      font-size:13px;
+    }
+    .links a:hover{ text-decoration:underline; }
+
+    /* small fade-in */
+    .reveal{ opacity:0; transform: translateY(8px); transition: .5s ease; }
+    .reveal.show{ opacity:1; transform:none; }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="#top" aria-label="OM Billing Inc. home">
+          <div class="logo">OM</div>
+          <!-- If you have a logo image, use:
+          <img class="logoimg" src="logo.png" alt="OM Billing logo" />
+          -->
+          <span>OM Billing Inc.</span>
+        </a>
+
+        <div class="menu" aria-label="Navigation">
+          <a href="#services">Services</a>
+          <a href="#approach">Approach</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+
+        <div class="cta">
+          <a class="btn" href="mailto:info@ombilling.ca">Email</a>
+          <a class="btn primary" href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+    <div class="wrap">
+      <section class="hero">
+        <div class="hero-grid">
+          <div class="reveal">
+            <div class="kicker"><span class="dot"></span> Ontario physician group billing support</div>
+            <h1>Billing support with a technology edge.</h1>
+            <p class="sub">
+              We support Ontario physician groups with structured billing optimization, secure workflow automation,
+              and seamless alignment with EMR and OHIP submission processes — improving accuracy, efficiency, and revenue integrity.
+            </p>
+
+            <div class="pillrow" aria-label="Highlights">
+              <div class="pill">Workflow optimization</div>
+              <div class="pill">Automation & validation</div>
+              <div class="pill">EMR-aligned integration</div>
+              <div class="pill">OHIP submission readiness</div>
+            </div>
+          </div>
+
+          <aside class="card aside reveal" aria-label="Quick facts">
+            <h3>Quick facts</h3>
+            <div class="big">Physician-group focused. Ontario-only.</div>
+            <p>
+              We operate through structured service agreements and a privacy-conscious, compliance-aware approach.
+            </p>
+            <div class="mini">
+              <div><strong>Incorporation</strong> 1000788585</div>
+              <div><strong>Email</strong> <a href="mailto:info@ombilling.ca">info@ombilling.ca</a></div>
+              <div><strong>Registered address</strong> 15 Ridgevale Dr., North York, ON M6A 1K9</div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <section id="services" class="section reveal">
+        <h2>What we do</h2>
+        <p>Practical billing support and structured automation designed to reduce variability, minimize errors, and streamline submissions.</p>
+
+        <div class="grid" style="margin-top:18px">
+          <div class="feature">
+            <div class="icon">W</div>
+            <h3>Workflow optimization</h3>
+            <p>Process mapping, digitization, and standardization to reduce administrative burden.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">A</div>
+            <h3>Automation & logic tools</h3>
+            <p>Validation, code-support logic, and structured checks to improve consistency and accuracy.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">E</div>
+            <h3>EMR & OHIP alignment</h3>
+            <p>Solutions designed to integrate with existing EMR environments and OHIP submission workflows.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">R</div>
+            <h3>Reporting & oversight</h3>
+            <p>Aggregate reporting to support transparency, governance, and continuous improvement.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="approach" class="section reveal">
+        <h2>How we work</h2>
+
+        <div class="split">
+          <div class="box">
+            <h3 style="margin:0 0 6px; font-size:15px;">Service-first, tech-enabled</h3>
+            <p style="margin:0; color:var(--muted); font-size:14px;">
+              We combine operational billing support with structured automation to improve reliability without disrupting clinical workflows.
+            </p>
+            <ul>
+              <li>Privacy-conscious and compliance-aware processes</li>
+              <li>Structured agreements and clear scope definition</li>
+              <li>Collaboration with institutional IT teams where required</li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <h3 style="margin:0 0 6px; font-size:15px;">Simple workflow view</h3>
+            <p style="margin:0; color:var(--muted); font-size:14px;">
+              A typical implementation emphasizes continuity and submission readiness.
+            </p>
+            <div class="flow" aria-label="Workflow diagram">
+              <div class="step"><strong>Documentation</strong> Align documentation inputs with billing needs.</div>
+              <div class="step"><strong>Logic layer</strong> Structured checks and code-support logic.</div>
+              <div class="step"><strong>Validation</strong> Reduce errors and variability before submission.</div>
+              <div class="step"><strong>OHIP workflow</strong> Maintain compatibility with submission processes.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="section reveal">
+        <h2>About</h2>
+        <p>
+          OM Billing Inc. is an Ontario-incorporated company (founded 2024) focused on physician-group billing support and workflow automation.
+          Services are delivered independently and at arm’s length, with an emphasis on operational integrity, compliance, and reliability.
+        </p>
+      </section>
+
+      <section id="contact" class="section reveal">
+        <h2>Contact</h2>
+        <div class="split">
+          <div class="box">
+            <h3 style="margin:0 0 10px; font-size:15px;">Get in touch</h3>
+            <p style="margin:0 0 14px; color:var(--muted); font-size:14px;">
+              Email is best for initial contact. We can share a brief capability overview on request.
+            </p>
+            <a class="btn primary" href="mailto:info@ombilling.ca">info@ombilling.ca</a>
+            <div class="fine">
+              Registered address: 15 Ridgevale Dr., North York, ON M6A 1K9<br>
+              Incorporation No.: 1000788585
+            </div>
+          </div>
+
+          <div class="box">
+            <h3 style="margin:0 0 10px; font-size:15px;">Privacy & terms</h3>
+            <p style="margin:0; color:var(--muted); font-size:14px;">
+              This website does not collect personal health information. Services are provided under formal service agreements and comply with applicable Ontario privacy requirements.
+            </p>
+            <div class="links" style="margin-top:12px;">
+              <a href="#privacy">Privacy Notice</a>
+              <a href="#terms">Terms of Use</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="privacy" class="section reveal">
+        <h2>Privacy Notice</h2>
+        <p>
+          This website is informational only and does not collect personal health information. If services involve personal information or personal health information,
+          they are governed by written agreements and handled with appropriate safeguards and compliance measures under applicable Ontario and Canadian privacy requirements.
+          For privacy inquiries, contact <a href="mailto:info@ombilling.ca" style="color:var(--accent); text-decoration:none; font-weight:600;">info@ombilling.ca</a>.
+        </p>
+      </section>
+
+      <section id="terms" class="section reveal">
+        <h2>Terms of Use</h2>
+        <p>
+          Information on this website is provided for general informational purposes and does not constitute legal, billing, or professional advice.
+          Use of this website does not create a client relationship. Services are provided only under a written agreement executed by OM Billing Inc.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap footergrid">
+      <div>
+        <div style="font-weight:800; letter-spacing:-0.02em;">OM Billing Inc.</div>
+        <div class="fine">Physician group billing support & workflow automation (Ontario)</div>
+      </div>
+      <div class="fine" style="text-align:right;">
+        <a href="mailto:info@ombilling.ca" style="color:var(--accent); font-weight:700; text-decoration:none;">info@ombilling.ca</a><br>
+        15 Ridgevale Dr., North York, ON M6A 1K9<br>
+        Incorporation No.: 1000788585
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Minimal reveal animation on scroll
+    const els = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add('show');
+      });
+    }, {threshold: 0.08});
+    els.forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>
