@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OM Billing | Smarter Billing Workflows for Ontario Physician Groups</title>
+  <meta name="description" content="OM Billing combines billing automation, logic-based optimization, and Epic EMR integration for Ontario physician groups. Active at UHN, reducing manual work while improving billing completeness." />
+
+  <meta name="robots" content="index, follow">
+  <meta name="keywords" content="OHIP billing software, Ontario billing software, physician billing software, medical billing automation, EMR billing integration">
+
+  <meta property="og:title" content="OM Billing | Smarter Billing Workflows for Ontario Physician Groups">
+  <meta property="og:description" content="Billing automation, logic-based optimization, and Epic EMR integration for Ontario physician groups. Active at a major Toronto academic health network.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://om-billing.com">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
+
+  <style>
+    :root{
+      /* OM-inspired greens (adjust later to match your brand exactly) */
+      --g-900:#064e3b;   /* deep green */
+      --g-700:#047857;   /* primary accent */
+      --g-600:#059669;   /* accent hover */
+      --g-100:#d1fae5;   /* soft highlight */
+      --g-050:#ecfdf5;   /* section wash */
+
+      --ink:#0f172a;     /* slate-900 */
+      --muted:#475569;   /* slate-600 */
+      --muted2:#64748b;  /* slate-500 */
+      --line:#e2e8f0;    /* slate-200 */
+      --bg:#ffffff;
+
+      --shadow: 0 10px 30px rgba(15,23,42,.08);
+      --radius: 18px;
+      --max: 1060px;
+    }
+
+    *{box-sizing:border-box}
+    html{
+      scroll-behavior:smooth;
+      scroll-padding-top: 95px;
+    }
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(900px 360px at 50% -120px, rgba(4,120,87,.14), transparent 60%),
+        radial-gradient(700px 280px at 80% 10%, rgba(4,120,87,.10), transparent 55%),
+        var(--bg);
+      line-height:1.55;
+    }
+
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 22px}
+
+    /* Top bar */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(180%) blur(10px);
+      background:rgba(255,255,255,.84);
+      border-bottom:1px solid rgba(226,232,240,.75);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:18px 0;
+      gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:14px;
+      text-decoration:none;
+      font-weight:700;
+      letter-spacing:-0.02em;
+    }
+
+    /* Logo placeholder (swap for your real logo image) */
+    .mark{
+      width:34px; height:34px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(4,120,87,.95), rgba(5,150,105,.70));
+      box-shadow: 0 14px 30px rgba(4,120,87,.22);
+      display:grid; place-items:center;
+      color:white; font-weight:800; font-size:13px;
+      user-select:none;
+    }
+    .logoimg{
+      width:auto; height:56px;
+      object-fit:contain;
+      background:transparent;
+      border:none;
+      padding:0;
+      filter: drop-shadow(0 4px 8px rgba(4,120,87,.18));
+    }
+
+    .legal{
+      font-size:12px;
+      color: rgba(15,23,42,.55);  
+      line-height:1.45;
+      margin-top:10px;
+    }
+    
+    .menu{
+      display:flex; align-items:center; gap:18px;
+      font-size:14px; color:var(--muted);
+    }
+    .menu a{
+      text-decoration:none;
+      padding:8px 10px;
+      border-radius:12px;
+    }
+    .menu a:hover{ background:rgba(236,253,245,.8); color:var(--ink); }
+
+    .cta{display:flex; gap:10px; align-items:center}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.92);
+      text-decoration:none;
+      font-weight:600;
+      font-size:14px;
+      transition:.18s ease;
+    }
+    .btn:hover{ box-shadow: var(--shadow); transform: translateY(-1px); }
+    .btn.primary{
+      border:0;
+      color:white;
+      background: linear-gradient(135deg, var(--g-700), var(--g-900));
+      box-shadow: 0 6px 14px rgba(4,120,87,.20);
+    }
+    .btn.primary:hover{ background: linear-gradient(135deg, var(--g-600), var(--g-900)); }
+
+    @media (max-width: 900px){
+      .menu{display:none;}
+    }
+
+    /* Hero */
+    .hero{ padding:66px 0 34px; }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap:22px;
+      align-items:start;
+    }
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+    }
+
+    .kicker{
+      display:inline-flex; align-items:center; gap:9px;
+      padding:6px 10px;
+      border:1px solid rgba(226,232,240,.9);
+      background: rgba(236,253,245,.75);
+      border-radius:999px;
+      color:var(--g-900);
+      font-size:13px;
+      font-weight:600;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: var(--g-700);
+      box-shadow:0 0 0 4px rgba(4,120,87,.12);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:46px;
+      line-height:1.05;
+      letter-spacing:-0.045em;
+    }
+    @media (max-width: 540px){ h1{ font-size:36px; } }
+
+    .sub{
+      margin:0 0 18px;
+      font-size:16px;
+      color:var(--muted);
+      max-width: 70ch;
+    }
+
+    .pillrow{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top:16px;
+    }
+    .pill{
+      padding:8px 10px;
+      border:1px solid rgba(226,232,240,.9);
+      background: rgba(255,255,255,.85);
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    /* Side card */
+    .card{
+      border:1px solid rgba(226,232,240,.9);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.92);
+      box-shadow: var(--shadow);
+    }
+    .aside{ padding:18px; }
+    .aside h3{
+      margin:0 0 8px;
+      font-size:12px;
+      color:var(--muted2);
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+    .aside .big{
+      margin:0 0 8px;
+      font-size:18px;
+      font-weight:700;
+      letter-spacing:-0.02em;
+    }
+    .aside p{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .mini{
+      border-top:1px solid rgba(226,232,240,.9);
+      padding-top:12px;
+      display:grid;
+      gap:10px;
+      font-size:14px;
+      color:var(--muted);
+    }
+    .mini a{
+      color:var(--g-700);
+      text-decoration:none;
+      font-weight:700;
+    }
+    .mini a:hover{ text-decoration:underline; }
+
+    /* Sections */
+    .divider{ height:1px; background:rgba(226,232,240,.9); margin-top:10px; }
+    .section{ padding:36px 0; }
+    section#privacy{
+      padding-bottom:8px;
+    }
+    section#terms{
+      padding-bottom:8px;
+    }
+    section#SEO{
+      padding-bottom:8px;
+    }
+    section#privacy p, section#SEO,
+    section#terms p{
+    margin-bottom:4px;
+    }
+    .section h2{
+      margin:0 0 12px;
+      font-size:22px;
+      letter-spacing:-0.02em;
+    }
+    section#privacy h2, section#SEO h2,
+    section#terms h2{
+      font-size:12px;
+      font-weight:600;
+      color: rgba(15,23,42,.65);
+      margin-bottom:6px;
+    }
+    .section p{ margin:0; color:var(--muted); }
+    .legal{
+      padding-top:20px;
+    }
+    
+    /* Feature grid (premium, minimal) */
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 980px){ .grid{ grid-template-columns: repeat(2, 1fr);} }
+    @media (max-width: 560px){ .grid{ grid-template-columns: 1fr;} }
+
+    .feature{
+      padding:16px;
+      border-radius: 16px;
+      background: rgba(236,253,245,.35);
+      border:1px solid rgba(226,232,240,.9);
+      transition:.2s ease;
+    }
+    .feature:hover{
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+      background: rgba(236,253,245,.55);
+    }
+    .icon{
+      width:34px; height:34px; border-radius:12px;
+      background: rgba(4,120,87,.10);
+      border:1px solid rgba(4,120,87,.18);
+      display:grid; place-items:center;
+      color: var(--g-700);
+      font-weight:900;
+      margin-bottom:10px;
+      user-select:none;
+    }
+    .feature h3{ margin:0 0 6px; font-size:15px; }
+    .feature p{ margin:0; font-size:14px; color:var(--muted); }
+
+    /* Split boxes */
+    .split{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+    @media (max-width: 980px){ .split{ grid-template-columns: 1fr;} }
+
+    .icon{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  background: rgba(4,120,87,.10);
+  border:1px solid rgba(4,120,87,.18);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition: .18s ease;
+  }
+
+  .icon svg{
+  width:20px;
+  height:20px;
+  stroke: var(--g-700);
+  }
+
+.feature:hover .icon{
+  background: rgba(4,120,87,.18);
+  border-color: rgba(4,120,87,.30);
+}
+    .box{
+      padding:18px;
+      border-radius: var(--radius);
+      border:1px solid rgba(226,232,240,.9);
+      background: rgba(255,255,255,.92);
+    }
+    .box h3{ margin:0 0 8px; font-size:15px; }
+    .box ul{ margin:12px 0 0; padding-left:18px; color:var(--muted); }
+    .box li{ margin:6px 0; }
+
+    /* Clean workflow */
+    .flow{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 980px){ .flow{ grid-template-columns: 1fr; } }
+
+    .step{
+      position:relative;
+      padding:14px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(226,232,240,.9);
+      background: rgba(248,250,252,.9);
+      overflow:hidden;
+    }
+    .step:before{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(135deg, rgba(4,120,87,.14), transparent 55%);
+      pointer-events:none;
+    }
+    .step strong{
+      display:block;
+      margin-bottom:6px;
+      font-size:13px;
+      color:var(--ink);
+      letter-spacing:-0.01em;
+    }
+    .step span{ display:block; font-size:13px; color:var(--muted); }
+
+    /* Soft section wash */
+    .wash{
+      background: linear-gradient(180deg, rgba(236,253,245,.60), rgba(255,255,255,0));
+      border-top:1px solid rgba(226,232,240,.9);
+      border-bottom:1px solid rgba(226,232,240,.9);
+    }
+
+    /* Footer */
+    footer{
+      padding:30px 0 44px;
+      background: rgba(248,250,252,.7);
+      border-top:1px solid rgba(226,232,240,.9);
+    }
+    .footergrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:16px;
+      align-items:start;
+    }
+    @media (max-width: 980px){ .footergrid{ grid-template-columns: 1fr; } }
+    .fine{ font-size:13px; color:var(--muted2); margin-top:10px; }
+    .links a{
+      color:var(--g-700);
+      font-weight:700;
+      text-decoration:none;
+      margin-right:14px;
+      font-size:13px;
+    }
+    .links a:hover{ text-decoration:underline; }
+
+    /* tiny reveal */
+    .reveal{ opacity:1; transform:none; transition: .55s ease; }
+    .reveal.animate{ opacity:0; transform: translateY(10px); }
+    .reveal.animate.show{ opacity:1; transform:none; }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="#top" aria-label="OM Billing home">
+          <img class="logoimg" src="logo-tight.png" alt="OM Billing logo" />
+          <span>OM Billing</span>
+        </a>
+
+        <div class="menu" aria-label="Navigation">
+          <a href="#services">Services</a>
+          <a href="#approach">Approach</a>
+          <a href="#pilot">Pilot</a>
+          <a href="#contact">Contact</a>
+        </div>
+
+        <div class="cta">
+          <a class="btn" href="mailto:admin@om-billing.com">Email</a>
+          <a class="btn primary" href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+    <div class="wrap">
+      <section class="hero">
+        <div class="hero-grid">
+          <div class="reveal">
+            <div class="kicker"><span class="dot"></span> Smarter billing workflows for Ontario physician groups</div>
+            <h1>Modernized billing, without disrupting clinical work.</h1>
+            <p class="sub">
+              OM Billing combines structured automation and billing intelligence with direct EMR integration, improving completeness, consistency, and traceability while reducing administrative burden. Active at a major Toronto academic health network, with full Epic integration.
+            </p>
+
+            <div class="cta" style="margin-top:16px;">
+              <a class="btn primary" href="mailto:admin@om-billing.com">Contact us</a>
+              <a class="btn" href="#services">What we do</a>
+            </div>
+
+            <div class="pillrow" aria-label="Highlights">
+              <div class="pill">Billing automation</div>
+              <div class="pill">EMR integration</div>
+              <div class="pill">Logic-based optimization</div>
+              <div class="pill">Point-of-care capture</div>
+              <div class="pill">Rejection reduction</div>
+              <div class="pill">Revenue alignment</div>
+            </div>
+          </div>
+
+          <aside class="card aside reveal" aria-label="Quick summary">
+            <h3>At a glance</h3>
+            <div class="big">Automation-first. Physician-designed.</div>
+            <p>
+              Built around how physicians actually work and bill, with logic layers that handle code selection, validation, and optimization automatically.
+            </p>
+            <div class="mini">
+              <div><strong>Focus:</strong> Ontario physician groups at academic health networks</div>
+              <div><strong>Contact:</strong> <a href="mailto:admin@om-billing.com">admin@om-billing.com</a></div>
+              <div><strong>Approach:</strong> Dedicated team. Written agreements and privacy-compliant processes</div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <section id="services" class="section reveal">
+        <h2>What we do</h2>
+        <p>
+          OM Billing combines EMR integration, logic-based code optimization, and billing automation into a single platform. Unlike traditional billing services or standalone software, it works upstream within clinical workflows, reducing manual effort while improving accuracy and capture rates.
+        </p>
+
+        <div class="grid">
+          <div class="feature">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="7" height="7"></rect>
+                <rect x="14" y="4" width="7" height="7"></rect>
+                <rect x="8.5" y="13" width="7" height="7"></rect>
+              </svg>
+            </div>
+            <h3>Billing automation</h3>
+            <p>Structured intake and automated billing workflows replace manual data entry, reducing administrative burden across clinic, OR, and ward settings.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 2a4 4 0 0 0-4 4v1a3 3 0 0 0 0 6v1a4 4 0 0 0 4 4"></path>
+                <path d="M15 2a4 4 0 0 1 4 4v1a3 3 0 0 1 0 6v1a4 4 0 0 1-4 4"></path>
+                <path d="M9 8h6M9 12h6M12 16v2"></path>
+              </svg>
+            </div>
+            <h3>Logic-based optimization</h3>
+            <p>Built-in billing logic and validation rules handle code selection, fee schedule alignment, and rejection prevention automatically, including complex multi-code submissions.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"></circle>
+                <circle cx="12" cy="12" r="5"></circle>
+                <circle cx="12" cy="12" r="1"></circle>
+              </svg>
+            </div>
+            <h3>EMR integration</h3>
+            <p>Operates directly within existing EMR environments, pulling clinical data at the point of activity to generate submission-ready billing outputs with minimal physician input.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </div>
+            <h3>Reporting & oversight</h3>
+            <p>Aggregate billing insights and audit trails supporting transparency, governance, and ongoing optimization across the group.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="approach" class="section wash reveal">
+        <div class="wrap">
+          <h2>How it works</h2>
+          <p>
+            A practical, automated flow from clinical activity to submission-ready output. Built to reduce manual steps at every stage.
+          </p>
+
+          <div class="flow" aria-label="Workflow">
+            <div class="step">
+              <strong>Capture</strong>
+              <span>Structured intake pulls directly from EMR data at the point of clinical activity, clinic, OR, or ward.</span>
+            </div>
+            <div class="step">
+              <strong>Automated logic</strong>
+              <span>Built-in billing intelligence applies code selection, fee schedule rules, and optimization logic automatically, including multi-code and complex procedure scenarios.</span>
+            </div>
+            <div class="step">
+              <strong>Validation</strong>
+              <span>Automated checks identify errors and flag rejection risks before submission, reducing re-work and appeals.</span>
+            </div>
+            <div class="step">
+              <strong>Submission output</strong>
+              <span>A complete, traceable billing record aligned to clinical activity, ready for OHIP submission with minimal input from physicians or billing staff.</span>
+            </div>
+          </div>
+
+          <div class="split">
+            <div class="box">
+              <h3>Common pain points we address</h3>
+              <ul>
+                <li>Manual, redundant data entry across clinical and billing teams</li>
+                <li>High risk of human errors and rejected claims</li>
+                <li>Limited traceability and difficult reconciliation</li>
+                <li>Billing activity not keeping pace with service volume</li>
+                <li>Delayed submissions and missed billings</li>
+              </ul>
+            </div>
+
+            <div class="box">
+              <h3>What groups typically gain</h3>
+              <ul>
+                <li>Better alignment between services delivered and services captured</li>
+                <li>Lower administrative burden on clinical and billing staff</li>
+                <li>Audit trail and clearer governance</li>
+                <li>Ongoing optimization through structured feedback</li>
+                <li>Reduced dependence on manual processes</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pilot" class="section reveal">
+        <h2>Zero-risk pilot</h2>
+        <p>
+          A short, low-friction pilot to validate impact before broader adoption.
+        </p>
+
+        <div class="split">
+          <div class="box">
+            <h3>Pilot structure</h3>
+            <ul>
+              <li>Deploy in 1–2 areas for 2–4 months</li>
+              <li>Side-by-side comparison with current workflow</li>
+              <li>Pre-agreed roadmap for any expansion</li>
+            </ul>
+          </div>
+          <div class="box">
+            <h3>Commercial model</h3>
+            <ul>
+              <li>No uplift, no cost</li>
+              <li>Performance-based fee (with agreed cap)</li>
+              <li>No obligation after pilot</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section reveal">
+        <h2>Contact</h2>
+        <div class="box">
+          <p style="margin:0 0 14px; color:var(--muted);">
+            For discussions, demos, or a brief capability overview:
+          </p>
+          <a class="btn primary" href="mailto:admin@om-billing.com">admin@om-billing.com</a>
+
+          <div class="fine">
+            OM Billing provides physician-group billing support and workflow automation within Ontario.
+          </div>
+        </div>
+      </section>
+
+      </section>
+      <section id="SEO" class="section reveal legal">
+        <h2>OHIP Billing Software for Ontario Physician Groups</h2>
+        <p>
+          While OM Billing is positioned as smarter billing workflow software, it also functions as OHIP billing software, combining billing automation, logic-based code optimization, and direct EMR integration for Ontario physician groups. Active deployments include physician groups at a major Toronto academic health network, with full Epic EMR integration and privacy-compliant hosting within UHN infrastructure.
+        </p>
+      </section>
+      <section id="privacy" class="section reveal legal">
+        <h2>Privacy</h2>
+        <p>
+          This website is informational and does not collect personal information.
+          Where services involve personal information or personal health information, they are governed by written agreements
+          and handled with appropriate safeguards in line with applicable Ontario and Canadian privacy requirements.
+          For inquiries: <a href="mailto:admin@om-billing.com" style="color:var(--g-700); font-weight:800; text-decoration:none;">admin@om-billing.com</a>.
+        </p>
+        
+      </section>
+      <section id="terms" class="section reveal legal">
+        <h2>Terms</h2>
+        <p>
+          Content on this website is provided for general informational purposes only and does not constitute legal, billing,
+          or professional advice. Services are provided only under a written agreement executed by OM Billing Inc.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap footergrid">
+      <div>
+        <div style="font-weight:900; letter-spacing:-0.02em;">OM Billing</div>
+        <div class="fine">Smarter billing workflows for Ontario physician groups</div>
+      </div>
+      <div style="text-align:right;">
+        <a href="mailto:admin@om-billing.com" style="color:var(--g-700); font-weight:900; text-decoration:none;">admin@om-billing.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('show'); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => {
+      el.classList.add('animate');
+      obs.observe(el);
+    });
+  </script>
+</body>
+</html>
